@@ -1,12 +1,12 @@
 # Owlbear Rodeo External Links
 
-Add external links for characters, and mounts for character sheets, 
+Enhance your game by attaching external links to characters and mounts, allowing you to share character sheets, additional documentation, and more with your players! Provide quick access to vital information and resources for everyone involved.
 
 ![Example](/docs/example.png)
 
 ## Installing
 
-Not yet hosted.. You'll need to run this yourself for now.
+Use the following Install Link "https://gravitydeficient.github.io/obr-external-links/manifest.json"
 
 
 ## How it Works
