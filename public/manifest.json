@@ -1,0 +1,16 @@
+{
+  "name": "External Links",
+  "version": "1.0.0",
+  "manifest_version": 1,
+  "author": "GravityDeficient",
+  "homepage_url": "https://github.com/GravityDeficient/OBR-external-links",
+  "icon": "/External_link_font_awesome.png",
+  "description": "Add external links on characters, mounts, and props to share between GMs and players for things like Character Sheets, documentation, and more!",
+  "action": {
+    "title": "External Links",
+    "icon": "/External_link_font_awesome.svg",
+    "popover": "/",
+    "height": 129,
+    "width": 250
+  }
+}
