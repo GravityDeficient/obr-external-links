@@ -2,7 +2,7 @@
 
 Add external links for characters, and mounts for character sheets, 
 
-![Example](/docs/example.jpg)
+![Example](/docs/example.png)
 
 ## Installing
 
