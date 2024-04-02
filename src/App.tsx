@@ -16,7 +16,7 @@ export function App() {
   } else {
     // Show a basic header when the scene isn't ready
     return (
-      <LinkHeader subtitle="Open a scene to use the link tracker" />
+      <LinkHeader subtitle="Open a scene to use external links" />
     );
   }
 }
