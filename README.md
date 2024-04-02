@@ -6,7 +6,7 @@ Enhance your game by attaching external links to characters and mounts, allowing
 
 ## Installing
 
-Use the following Install Link "https://gravitydeficient.github.io/obr-external-links/manifest.json"
+Use the following Install Link "https://obr-external-links.onrender.com/manifest.json"
 
 
 ## How it Works
