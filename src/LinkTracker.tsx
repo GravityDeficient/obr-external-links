@@ -102,10 +102,10 @@ export function LinkTracker() {
           const addToLinks = items.every(
             (item) => item.metadata[getPluginId("metadata")] === undefined
           );
-          let count = 0;
+          
           for (let item of items) {
             if (addToLinks) {
-              const url = prompt("Enter the URL for the link:");
+              const url = prompt(`Enter the URL for ${item.name}:`);
 
               // Ensure URL and title are provided before proceeding
               if (url) {
