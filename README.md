@@ -1,15 +1,3 @@
----
-title: External Links
-description: Attach links to characters, mounts, and props, for sheets, docs, and more!
-author: GravityDeficient
-image: https://obr-external-links.gravitydeficient.com/External_link_font_awesome.png
-icon: https://obr-external-links.gravitydeficient.com/External_link_font_awesome.svg
-tags:
-  - other
-manifest: https://obr-external-links.gravitydeficient.com/manifest.json
-learn-more: https://github.com/GravityDeficient/obr-external-links
----
-
 # OBR External Links
 
 An [Owlbear Rodeo](https://www.owlbear.rodeo/) extension for attaching external links to characters, mounts, and props allowing you to share character sheets, additional documentation, and more with players. Provide quick access to vital information and resources for everyone involved.
