@@ -1,13 +1,32 @@
-# Owlbear Rodeo External Links
+---
+title: External Links
+description: Attach links to characters, mounts, and props, for sheets, docs, and more!
+author: GravityDeficient
+image: https://obr-external-links.gravitydeficient.com/External_link_font_awesome.png
+icon: https://obr-external-links.gravitydeficient.com/External_link_font_awesome.svg
+tags:
+  - other
+manifest: https://obr-external-links.gravitydeficient.com/manifest.json
+learn-more: https://github.com/GravityDeficient/obr-external-links
+---
 
-Enhance your game by attaching external links to characters and mounts, allowing you to share character sheets, additional documentation, and more with your players! Provide quick access to vital information and resources for everyone involved.
+# OBR External Links
+
+An [Owlbear Rodeo](https://www.owlbear.rodeo/) extension for attaching external links to characters, mounts, and props allowing you to share character sheets, additional documentation, and more with players. Provide quick access to vital information and resources for everyone involved.
 
 ![Example](/docs/example.png)
 
 ## Installing
 
-Use the following Install Link "https://obr-external-links.onrender.com/manifest.json"
+Use the following Install Link "https://obr-external-links.gravitydeficient.com/manifest.json"
 
+## How to use it
+
+GM's can right click on an asset (characters, mounts, and props) chaand select "Add External Link" then enter the URL you want to link when prompted.
+
+To see the list of links slect the <img src="https://obr-external-links.gravitydeficient.com/External_link_font_awesome.png" alt="external link" width="24"/> button to expand the entered links.
+
+GM's can remove a link by right clicking on an asset which has a link and selecting "Remove External Link."
 
 ## How it Works
 

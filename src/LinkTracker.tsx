@@ -73,9 +73,11 @@ export function LinkTracker() {
           icon: addIcon,
           label: "Add External Link",
           filter: {
+            roles: ['GM'],
             every: [
               { key: "layer", value: "CHARACTER", coordinator: "||" },
-              { key: "layer", value: "MOUNT" },
+              { key: "layer", value: "MOUNT", coordinator: "||" },
+              { key: "layer", value: "PROP" },
               { key: "type", value: "IMAGE" },
               { key: ["metadata", getPluginId("metadata")], value: undefined },
             ],
@@ -86,9 +88,11 @@ export function LinkTracker() {
           icon: removeIcon,
           label: "Remove External Link",
           filter: {
+            roles: ['GM'],
             every: [
               { key: "layer", value: "CHARACTER", coordinator: "||" },
-              { key: "layer", value: "MOUNT" },
+              { key: "layer", value: "MOUNT", coordinator: "||" },
+              { key: "layer", value: "PROP" },
               { key: "type", value: "IMAGE" },
             ],
             permissions: ["UPDATE"],
