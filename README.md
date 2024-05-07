@@ -10,11 +10,11 @@ Use the following Install Link "https://obr-external-links.gravitydeficient.com/
 
 ## How to use it
 
-GM's can right click on an asset (characters, mounts, and props) chaand select "Add External Link" then enter the URL you want to link when prompted.
+GM's can right click on an asset (characters, mounts, and props) and select "Add External Link" then enter the URL you want to link when prompted.
 
-To see the list of links slect the <img src="https://obr-external-links.gravitydeficient.com/External_link_font_awesome.png" alt="external link" width="24"/> button to expand the entered links.
+To see the list of links slect the <img src="https://raw.githubusercontent.com/GravityDeficient/obr-external-links/main/public/External_link_font_awesome.png" alt="external link" width="24"/> button to expand the entered links.
 
-GM's can remove a link by right clicking on an asset which has a link and selecting "Remove External Link."
+GM's can remove a link by right clicking on an asset which has a link you want to remove, and selecting "Remove External Link."
 
 ## How it Works
 
