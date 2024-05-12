@@ -1,4 +1,4 @@
-# OBR External Links
+# External Links
 
 This is an [Owlbear Rodeo](https://www.owlbear.rodeo/) extension for attaching external links to characters, mounts, and props. It allows you to share character sheets, additional documentation, and more with players. This provides quick access to vital information and resources for everyone involved.
 
@@ -12,13 +12,28 @@ The extension can be installed manually by pasting the manifest URL below in the
 https://obr-external-links.gravitydeficient.com/manifest.json
 ```
 
-## How to use it
+## How to Use External Links
+### Adding External Links (GM Only)
+Add external links to assets (characters, mounts, props) by right-clicking the asset, selecting "Add External Link," and entering the URL when prompted.
 
-GMs can right-click on an asset (characters, mounts, and props) and select "Add External Link." When prompted, they can enter the URL they want to link to.
+### Viewing External Links
+Click the <img src="https://raw.githubusercontent.com/GravityDeficient/obr-external-links/main/public/External_link_font_awesome.png" alt="external link" width="24"/> External Links button in the extensions toolbar to display all associated links in the External Links pane.
 
-To see the list of links, select the <img src="https://raw.githubusercontent.com/GravityDeficient/obr-external-links/main/public/External_link_font_awesome.png" alt="external link" width="24"/> button to expand the entered links.
+Links on assets which are hidden by the GM are only visible to the GM.
 
-GMs can remove a link by right-clicking on an asset with a link you want to remove and selecting "Remove External Link."
+### Link Interaction Modes
+Toggle how links open by using the "Modal Switch" in the External Links pane:
+
+- Modal Window: Opens links within Owlbear Rodeo.
+- New Window: Opens links in a new browser window.
+
+![modal example](/docs/modal-example.png)
+
+### Editing and Removing External Links
+
+**To edit a link**: Right-click the asset, select "Edit External Link," modify the URL, and confirm.
+
+**To remove a link**: Right-click the asset, choose "Remove External Link," and confirm removal.
 
 ## How it Works
 
