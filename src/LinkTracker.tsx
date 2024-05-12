@@ -1,11 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 
 import Stack from "@mui/material/Stack";
-import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
-
-import SkipNextRounded from "@mui/icons-material/SkipNextRounded";
 
 import OBR, { isImage, Item, Player } from "@owlbear-rodeo/sdk";
 
@@ -13,6 +10,7 @@ import { LinkItem } from "./LinkItem";
 
 import addIcon from "./assets/add.svg";
 import removeIcon from "./assets/remove.svg";
+import editIcon from "./assets/edit.svg";
 
 import { LinkListItem } from "./LinkListItem";
 import { getPluginId } from "./getPluginId";
@@ -34,6 +32,10 @@ export function LinkTracker() {
   const [linkItems, setLinkItems] = useState<LinkItem[]>([]);
   const [role, setRole] = useState<"GM" | "PLAYER">("PLAYER");
 
+  // State to control whether links open in a modal or a new window
+  const [openInModal, setOpenInModal] = useState(false);
+
+  // Load the player role when the scene is ready
   useEffect(() => {
     const handlePlayerChange = (player: Player) => {
       setRole(player.role);
@@ -42,6 +44,7 @@ export function LinkTracker() {
     return OBR.player.onChange(handlePlayerChange);
   }, []);
 
+  // Load the external links when the scene is ready
   useEffect(() => {
     const handleItemsChange = async (items: Item[]) => {
       const linkItems: LinkItem[] = [];
@@ -66,6 +69,7 @@ export function LinkTracker() {
     return OBR.scene.items.onChange(handleItemsChange);
   }, []);
 
+  // Add a context menu item to add or remove the external link
   useEffect(() => {
     OBR.contextMenu.create({
       icons: [
@@ -130,9 +134,52 @@ export function LinkTracker() {
       },
     });
   }, []); 
+ 
+  // Add a context menu item to edit an existing external link
+  useEffect(() => {
+    OBR.contextMenu.create({
+      icons: [
+        {
+          icon: editIcon,
+          label: "Edit External Link",
+          filter: {
+            roles: ['GM'],
+            every: [
+              { key: "layer", value: "CHARACTER", coordinator: "||" },
+              { key: "layer", value: "MOUNT", coordinator: "||" },
+              { key: "layer", value: "PROP" },
+              { key: "type", value: "IMAGE" },
+              { key: ["metadata", getPluginId("metadata")], value: undefined, operator: "!=" },
+            ],
+            permissions: ["UPDATE"],
+          }
+        }
+      ],
+      id: getPluginId("edit-link"),
+      onClick(context) {
+        OBR.scene.items.updateItems(context.items, (items) => {
+          // Check whether to add the items to external links or remove them
+	        const editLinks = context.items.every(
+        	  item => item.metadata[getPluginId("metadata")] !== undefined
+       	  );
+          
+          for (let item of items) {
+		        if (editLinks) {
+              const currentUrl = (item.metadata[getPluginId("metadata")] as LinkItem)?.url;
+              const newUrl = prompt(`Edit the URL for ${item.name}:`, currentUrl);
+              if (newUrl && newUrl !== currentUrl) {
+                (item.metadata[getPluginId("metadata")] as LinkItem).url = newUrl;
+              }
+            }
+          }
+        });
+      },
+    });
+  }, []); 
 
-  const listRef = useRef<HTMLUListElement>(null);
+  const listRef = useRef<HTMLUListElement>(null); // Create a ref to the list element
 
+  // Use a ResizeObserver to set the height of the list
   useEffect(() => {
     if (listRef.current && ResizeObserver) {
       const resizeObserver = new ResizeObserver((entries) => {
@@ -143,9 +190,9 @@ export function LinkTracker() {
           // however as of this time the property isn't widely supported (iOS)
           const borderHeight = entry.contentRect.bottom + entry.contentRect.top;
           // Set a minimum height of 64px
-          const listHeight = Math.max(borderHeight, 64);
+          const listHeight = Math.max(borderHeight, 74);
           // Set the action height to the list height + the card header height + the divider
-          OBR.action.setHeight(listHeight + 64 + 1);
+          OBR.action.setHeight(listHeight + 74 + 1);
         }
       });
       resizeObserver.observe(listRef.current);
@@ -157,12 +204,15 @@ export function LinkTracker() {
     }
   }, []);
 
+  // Render the list of external links
   return (
     <Stack height="100vh">
       <LinkHeader
         subtitle={
           linkItems.length === 0 ? "Add a link to start" : undefined
         }
+        openInModal={openInModal}
+        setOpenInModal={setOpenInModal}
       />
       <Box sx={{ overflowY: "auto" }}>
         <List ref={listRef}>
@@ -171,6 +221,7 @@ export function LinkTracker() {
               key={linkItem.id}
               linkItem={linkItem}
               showHidden={role === "GM"}
+              openInModal={openInModal}
             />
           ))}
         </List>

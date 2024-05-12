@@ -1,23 +1,25 @@
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import Input from "@mui/material/Input";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import Link from "@mui/material/Link";
-
 import VisibilityOffRounded from "@mui/icons-material/VisibilityOffRounded";
+import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
+import IconButton from "@mui/material/IconButton";
 
-import OBR, { Math2, Vector2 } from "@owlbear-rodeo/sdk";
+import OBR, { Math2, Vector2, Player } from "@owlbear-rodeo/sdk";
 
 import { LinkItem } from "./LinkItem";
 
 type LinkListItemProps = {
   linkItem: LinkItem;
   showHidden: boolean;
+  openInModal: boolean;
 };
 
 export function LinkListItem({
   linkItem,
   showHidden,
+  openInModal
 }: LinkListItemProps) {
   if (!linkItem.visible && !showHidden) {
     return null;
@@ -64,6 +66,15 @@ export function LinkListItem({
     });
   }
 
+  function openModal() {
+    OBR.modal.open({
+      id: "external-links-modal",
+      url: linkItem.url,
+      height: 800,
+      width: 600,
+    });
+  }
+
   return (
     <ListItem
       key={linkItem.id}
@@ -71,18 +82,27 @@ export function LinkListItem({
       onDoubleClick={handleDoubleClick}
     >
       {!linkItem.visible && showHidden && (
-        <ListItemIcon sx={{ minWidth: "30px", opacity: "0.5" }}>
-          <VisibilityOffRounded fontSize="small" />
-        </ListItemIcon>
+      <ListItemIcon sx={{ minWidth: "30px", opacity: "0.5" }}>
+        <VisibilityOffRounded fontSize="small" />
+      </ListItemIcon>
       )}
       <ListItemText
         sx={{ color: "text.primary" }}
-        primary={
-          <Link href={linkItem.url} target="_blank" rel="noopener">
-           {linkItem.name}
-          </Link>
-        }
+        primary={linkItem.name}
       />
+      {openInModal ? (
+      <ListItemIcon sx={{ marginRight: "-16px" }}>
+        <IconButton onClick={openModal} size="small" sx={{ padding: "6px" }}>
+          <OpenInBrowserIcon />
+        </IconButton>
+      </ListItemIcon>
+      ) : (
+      <ListItemIcon sx={{ marginRight: "-16px" }}>
+        <IconButton href={linkItem.url} target="_blank" rel="noopener" size="small" sx={{ padding: "6px" }}>
+          <OpenInNewIcon />
+        </IconButton>
+      </ListItemIcon>
+      )}
     </ListItem>
   );
 }
