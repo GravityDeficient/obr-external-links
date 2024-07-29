@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 import List from "@mui/material/List";
 import Box from "@mui/material/Box";
 
-import OBR, { isImage, Item, Player } from "@owlbear-rodeo/sdk";
+import OBR, { isImage, isText, Item, Player } from "@owlbear-rodeo/sdk";
 
 import { LinkItem } from "./LinkItem";
 
@@ -49,13 +49,13 @@ export function LinkTracker() {
     const handleItemsChange = async (items: Item[]) => {
       const linkItems: LinkItem[] = [];
       for (const item of items) {
-        if (isImage(item)) {
+        if (isImage(item) || isText(item)) {
           const metadata = item.metadata[getPluginId("metadata")];
           if (isMetadata(metadata)) {
             linkItems.push({
               id: item.id,
               url: metadata.url,
-              name: item.text.plainText || item.name,
+              name: ((item.name === "Text") ? item.text.richText[0].children[0].text : item.text.plainText || item.name),
               visible: item.visible,
               active: metadata.active
             });
@@ -81,7 +81,11 @@ export function LinkTracker() {
             every: [
               { key: "layer", value: "CHARACTER", coordinator: "||" },
               { key: "layer", value: "MOUNT", coordinator: "||" },
-              { key: "layer", value: "PROP" },
+              { key: "layer", value: "PROP", coordinator: "||" },
+              { key: "layer", value: "MAP", coordinator: "||" },
+              { key: "layer", value: "TEXT", coordinator: "||" },
+              { key: "layer", value: "NOTE" },
+              { key: "type", value: "TEXT", coordinator: "||" },
               { key: "type", value: "IMAGE" },
               { key: ["metadata", getPluginId("metadata")], value: undefined },
             ],
@@ -96,7 +100,11 @@ export function LinkTracker() {
             every: [
               { key: "layer", value: "CHARACTER", coordinator: "||" },
               { key: "layer", value: "MOUNT", coordinator: "||" },
-              { key: "layer", value: "PROP" },
+              { key: "layer", value: "PROP", coordinator: "||" },
+              { key: "layer", value: "MAP", coordinator: "||" },
+              { key: "layer", value: "TEXT", coordinator: "||" },
+              { key: "layer", value: "NOTE" },
+              { key: "type", value: "TEXT", coordinator: "||" },
               { key: "type", value: "IMAGE" },
             ],
             permissions: ["UPDATE"],
@@ -147,7 +155,11 @@ export function LinkTracker() {
             every: [
               { key: "layer", value: "CHARACTER", coordinator: "||" },
               { key: "layer", value: "MOUNT", coordinator: "||" },
-              { key: "layer", value: "PROP" },
+              { key: "layer", value: "PROP", coordinator: "||" },
+              { key: "layer", value: "MAP", coordinator: "||" },
+              { key: "layer", value: "TEXT", coordinator: "||" },
+              { key: "layer", value: "NOTE" },
+              { key: "type", value: "TEXT", coordinator: "||" },
               { key: "type", value: "IMAGE" },
               { key: ["metadata", getPluginId("metadata")], value: undefined, operator: "!=" },
             ],
