@@ -14,12 +14,15 @@ https://obr-external-links.gravitydeficient.com/manifest.json
 
 ## How to Use External Links
 ### Adding External Links (GM Only)
-Add external links to assets (characters, mounts, props) by right-clicking the asset, selecting "Add External Link," and entering the URL when prompted.
+Add external links to assets (characters, mounts, props, maps, notes, and text) by right-clicking the asset, selecting "Add External Link," and entering the URL when prompted.
 
 ### Viewing External Links
 Click the <img src="https://raw.githubusercontent.com/GravityDeficient/obr-external-links/main/public/External_link_font_awesome.png" alt="external link" width="24"/> External Links button in the extensions toolbar to display all associated links in the External Links pane.
 
 Links on assets which are hidden by the GM are only visible to the GM.
+
+### Link Titles
+Link titles are taken from the plain text title or accessibility text of assets with images asset. When adding links to text only it will use the first line if the accessibility text is set to the default "Text" value.
 
 ### Link Interaction Modes
 Toggle how links open by using the "Modal Switch" in the External Links pane:
