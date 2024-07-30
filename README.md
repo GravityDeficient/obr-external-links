@@ -22,7 +22,7 @@ Click the <img src="https://raw.githubusercontent.com/GravityDeficient/obr-exter
 Links on assets which are hidden by the GM are only visible to the GM.
 
 ### Link Titles
-Link titles are taken from the plain text title or accessibility text of assets with images asset. When adding links to text only it will use the first line if the accessibility text is set to the default "Text" value.
+Link titles are taken from the plain text title or accessibility text of images assets. When adding links to text only assets, it will use the first line if the accessibility text is set to the default "Text" value.
 
 ### Link Interaction Modes
 Toggle how links open by using the "Modal Switch" in the External Links pane:
