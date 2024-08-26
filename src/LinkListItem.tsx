@@ -5,6 +5,8 @@ import VisibilityOffRounded from "@mui/icons-material/VisibilityOffRounded";
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import OpenInBrowserIcon from '@mui/icons-material/OpenInBrowser';
 import IconButton from "@mui/material/IconButton";
+import PolicyIcon from '@mui/icons-material/Policy';
+import Tooltip from '@mui/material/Tooltip';
 
 import OBR, { Math2, Vector2, Player } from "@owlbear-rodeo/sdk";
 
@@ -75,6 +77,15 @@ export function LinkListItem({
     });
   }
 
+  async function inspectURL() {
+    try {
+      await navigator.clipboard.writeText(linkItem.url);
+      OBR.notification.show(`URL copied to clipboard. Please inspect it carefully before proceeding. ${linkItem.url}`, 'INFO');
+    } catch (error) {
+      OBR.notification.show(`Failed to copy external link URL: ${linkItem.url}`, 'ERROR');
+    }
+  }
+
   return (
     <ListItem
       key={linkItem.id}
@@ -90,17 +101,28 @@ export function LinkListItem({
         sx={{ color: "text.primary" }}
         primary={linkItem.name}
       />
+      <ListItemIcon sx={{ marginRight: "-16px" }}>
+      <Tooltip title="Copy & Inspect" placement="left">
+        <IconButton onClick={inspectURL} size="small" sx={{ padding: "6px" }}>
+          <PolicyIcon />
+        </IconButton>
+        </Tooltip>
+      </ListItemIcon>
       {openInModal ? (
       <ListItemIcon sx={{ marginRight: "-16px" }}>
-        <IconButton onClick={openModal} size="small" sx={{ padding: "6px" }}>
-          <OpenInBrowserIcon />
-        </IconButton>
+        <Tooltip title={linkItem.url} placement="left">
+          <IconButton onClick={openModal} size="small" sx={{ padding: "6px" }} disabled={linkItem.url === "about:blank" || !linkItem.url.startsWith("http") }>
+            <OpenInBrowserIcon />
+          </IconButton>
+        </Tooltip>
       </ListItemIcon>
       ) : (
       <ListItemIcon sx={{ marginRight: "-16px" }}>
-        <IconButton href={linkItem.url} target="_blank" rel="noopener" size="small" sx={{ padding: "6px" }}>
-          <OpenInNewIcon />
-        </IconButton>
+        <Tooltip title={linkItem.url} placement="left">
+          <IconButton href={linkItem.url} target="_blank" rel="noopener" size="small" sx={{ padding: "6px" }} disabled={linkItem.url === "about:blank"}>
+            <OpenInNewIcon />
+          </IconButton>
+        </Tooltip>
       </ListItemIcon>
       )}
     </ListItem>

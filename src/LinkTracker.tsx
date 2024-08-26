@@ -6,6 +6,8 @@ import Box from "@mui/material/Box";
 
 import OBR, { isImage, isText, Item, Player } from "@owlbear-rodeo/sdk";
 
+import { sanitizeUrl } from "@braintree/sanitize-url";
+
 import { LinkItem } from "./LinkItem";
 
 import addIcon from "./assets/add.svg";
@@ -125,10 +127,11 @@ export function LinkTracker() {
 
               // Ensure URL and title are provided before proceeding
               if (url) {
+                const sanitizedUrl = sanitizeUrl(url);
                 OBR.scene.items.updateItems(context.items, (items) => {
                   for (let item of items) {
                     item.metadata[getPluginId("metadata")] = {
-                      url: url,
+                      url: sanitizedUrl,
                       active: false, // Set active or any other default properties as needed
                     };
                   }
@@ -180,7 +183,8 @@ export function LinkTracker() {
               const currentUrl = (item.metadata[getPluginId("metadata")] as LinkItem)?.url;
               const newUrl = prompt(`Edit the URL for ${item.name}:`, currentUrl);
               if (newUrl && newUrl !== currentUrl) {
-                (item.metadata[getPluginId("metadata")] as LinkItem).url = newUrl;
+                const sanitizedUrl = sanitizeUrl(newUrl);
+                (item.metadata[getPluginId("metadata")] as LinkItem).url = sanitizedUrl;
               }
             }
           }
