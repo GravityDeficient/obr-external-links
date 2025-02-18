@@ -11,7 +11,7 @@ export function App() {
   useEffect(() => {
     OBR.scene.isReady().then(setSceneReady);
     OBR.action.setWidth(400);
-    OBR.action.setHeight(268);
+    OBR.action.setHeight(270);
     return OBR.scene.onReadyChange(setSceneReady);
   }, []);
 

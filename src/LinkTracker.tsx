@@ -13,11 +13,14 @@ import { LinkItem } from "./LinkItem";
 import addIcon from "./assets/add.svg";
 import removeIcon from "./assets/remove.svg";
 import editIcon from "./assets/edit.svg";
+import externalLinkIcon from "../public/External_link_font_awesome.svg";
 
 import { LinkListItem } from "./LinkListItem";
 import { getPluginId } from "./getPluginId";
 import { LinkHeader } from "./LinkHeader";
 import { isPlainObject } from "./isPlainObject";
+
+type SortOrder = "asc" | "desc" | "none"; // Sorting order types
 
 /** Check that the item metadata is in the correct format */
 function isMetadata(
@@ -30,12 +33,35 @@ function isMetadata(
   );
 }
 
+
+
 export function LinkTracker() {
   const [linkItems, setLinkItems] = useState<LinkItem[]>([]);
   const [role, setRole] = useState<"GM" | "PLAYER">("PLAYER");
 
+  const [sortOrder, setSortOrder] = useState<SortOrder>("none"); // Sorting state
+
   // State to control whether links open in a modal or a new window
   const [openInModal, setOpenInModal] = useState(false);
+
+  // Function to toggle sorting order
+  const toggleSortOrder = () => {
+    setSortOrder((prev) => {
+      if (prev === "none") return "asc";
+      if (prev === "asc") return "desc";
+      return "none";
+    });
+  };
+
+  // Function to sort links based on `sortOrder`
+  const sortedLinks = () => {
+    if (sortOrder === "none") return linkItems;
+    return [...linkItems].sort((a, b) => {
+      const nameA = a.name.toLowerCase();
+      const nameB = b.name.toLowerCase();
+      return sortOrder === "asc" ? nameA.localeCompare(nameB) : nameB.localeCompare(nameA);
+    });
+  };
 
   // Load the player role when the scene is ready
   useEffect(() => {
@@ -229,10 +255,12 @@ export function LinkTracker() {
         }
         openInModal={openInModal}
         setOpenInModal={setOpenInModal}
+        sortOrder={sortOrder}
+        toggleSortOrder={toggleSortOrder}
       />
       <Box sx={{ overflowY: "auto" }}>
         <List ref={listRef}>
-          {linkItems.map((linkItem) => (
+          {sortedLinks().map((linkItem) => (
             <LinkListItem
               key={linkItem.id}
               linkItem={linkItem}
