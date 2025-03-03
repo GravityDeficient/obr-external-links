@@ -219,6 +219,59 @@ export function LinkTracker() {
     });
   }, []); 
 
+  useEffect(() => {
+    OBR.contextMenu.create({
+      icons: [
+        {
+          icon: externalLinkIcon,
+          label: "Open External Link",
+          filter: {
+            roles: ['GM', 'PLAYER'],
+            every: [
+              { key: "layer", value: "CHARACTER", coordinator: "||" },
+              { key: "layer", value: "MOUNT", coordinator: "||" },
+              { key: "layer", value: "PROP", coordinator: "||" },
+              { key: "layer", value: "MAP", coordinator: "||" },
+              { key: "layer", value: "TEXT", coordinator: "||" },
+              { key: "layer", value: "NOTE" },
+              { key: "type", value: "TEXT", coordinator: "||" },
+              { key: "type", value: "IMAGE" },
+              { key: ["metadata", getPluginId("metadata")], value: undefined, operator: "!=" },
+            ]
+          },
+        }
+      ],
+      id: getPluginId("open-link"),
+      onClick(context) {
+        console.log("Context menu clicked", context);
+        // Fetch the first item's metadata to get the URL
+        const item = context.items[0];
+        // const metadata = item.metadata[getPluginId("metadata")] as LinkItem;
+        const url = (item.metadata[getPluginId("metadata")] as LinkItem)?.url
+
+        console.log("Selected Item:", item);
+        console.log("URL:", url);
+  
+        if (url) {
+          console.log("openInModal", openInModal);
+
+          if (openInModal) {
+            // Open in modal
+            OBR.modal.open({
+              id: "external-links-modal",
+              url: url,
+              height: 800,
+              width: 600,
+            });
+          } else {
+            // Open in a new window
+            window.open(url, "_blank", "noopener,noreferrer");
+          }
+        }
+      }
+    });
+  }, [openInModal]);
+
   const listRef = useRef<HTMLUListElement>(null); // Create a ref to the list element
 
   // Use a ResizeObserver to set the height of the list
